@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    let students = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
+    @State private var selectedStudent = "Ravenclaw"
+
     var body: some View {
         NavigationStack {
             Form {
-                ForEach(0..<30) {
-                    Text("Birthday #\($0 + 1)")
+                Picker("Select your house", selection: $selectedStudent) {
+                    ForEach(students, id: \.self) {
+                        Text($0)
+                    }
                 }
             }
-            .navigationTitle("Birthdays")
+            .navigationTitle("Hogwarts Houses")
         }
     }
 }
