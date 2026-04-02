@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var name = ""
-
     var body: some View {
-        Form {
-            TextField("Enter your name", text: $name)
-            Text("You name is \(name)")
+        NavigationStack {
+            Form {
+                ForEach(0..<30) {
+                    Text("Birthday #\($0 + 1)")
+                }
+            }
+            .navigationTitle("Birthdays")
         }
     }
 }
