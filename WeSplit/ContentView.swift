@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var checkAmount = 0.0
-    @State private var numberOfPeople = 2
+    @State private var checkAmount = 100.0
+    @State private var numberOfPeople = 0
     @State private var tipPercentage = 10
 
     let tipPercentages = [0, 10, 15, 20, 25]
+
+    var totalPerPerson: Double {
+        let peopleCount = Double(numberOfPeople + 2)
+        let tipSelection = Double(tipPercentage)
+        let tipValue = tipSelection / 100 * checkAmount
+        let grandTotal = checkAmount + tipValue
+
+        return grandTotal / peopleCount
+    }
 
     var body: some View {
         NavigationStack {
@@ -44,19 +53,13 @@ struct ContentView: View {
                     .pickerStyle(.segmented)
                 }
 
-                Section {
+                Section("Total Amount") {
                     Text(
-                        checkAmount,
+                        totalPerPerson,
                         format: .currency(
                             code: Locale.current.currency?.identifier ?? "USD"
                         )
                     )
-                }
-
-                Button("Split Amount") {
-                    print(checkAmount)
-                    print(numberOfPeople)
-                    print(tipPercentage)
                 }
             }
             .navigationTitle("WeSplit")
