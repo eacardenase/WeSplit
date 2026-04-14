@@ -27,6 +27,10 @@ struct ContentView: View {
         return grandTotal / peopleCount
     }
 
+    var totalAmount: Double {
+        return peopleCount * totalPerPerson
+    }
+
     var body: some View {
         NavigationStack {
             Form {
@@ -70,11 +74,12 @@ struct ContentView: View {
 
                 Section("Total Amount") {
                     Text(
-                        totalPerPerson * peopleCount,
+                        totalAmount,
                         format: .currency(
                             code: Locale.current.currency?.identifier ?? "USD"
                         )
                     )
+                    .foregroundStyle(tipPercentage == 0 ? .red : .primary)
                 }
             }
             .navigationTitle("WeSplit")
